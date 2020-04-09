@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Video Games List</h1>
+
+{% for game in games %}
+  <div class="card">
+    <a href="/games/{{ game.id }}">
+    <div class="card-content">
+      <span class="card-title">{{ game.name }}</span>
+      <p>Developer: {{ game.developer }}</p>
+      <p>Publisher: {{ game.publisher }}</p>
+      <p>Platform: {{ game.platform  }}</p>
+        <p>Release Year: {{ game.release_year }}</p>
+    </div>
+  </div>
+</a>
+{% endfor %}
+
+{% endblock %}

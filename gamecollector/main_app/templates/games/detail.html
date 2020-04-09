@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Game Video Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ game.name }}</span>
+    <p>Publisher: {{ game.publisher }}</p>
+    <p>Platform: {{ game.platform }}</p>
+      <p>Release Year: {{ game.release_year }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'games_update' game.id %}">Edit</a>
+    <a href="{% url 'games_delete' game.id %}">Delete</a>
+  </div>
+</div>
+
+{% endblock %}
