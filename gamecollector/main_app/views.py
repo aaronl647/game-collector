@@ -10,7 +10,7 @@ class GamesCreate(CreateView):
 
 class GamesUpdate(UpdateView):
     model = Games
-    fields = ['name', 'developer', 'publisher', 'platform']
+    fields = ['name', 'developer', 'publisher']
 
 class GamesDelete(DeleteView):
     model = Games

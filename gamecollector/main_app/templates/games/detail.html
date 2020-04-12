@@ -6,9 +6,13 @@
 <div class="card">
   <div class="card-content">
     <span class="card-title">{{ game.name }}</span>
+    <p>Developer: {{ game.developer }}</p>
     <p>Publisher: {{ game.publisher }}</p>
-    <p>Platform: {{ game.platform }}</p>
-      <p>Release Year: {{ game.release_year }}</p>
+    <p>Completed: {{ game.completed }}</p>
+    <p>Hours Played: {{ game.hours_played }}</p>
+    <p>Played On: {{ game.played_on }}</p>
+    <p>Genre: {{ game.genre }}</p>
+    <p>Release Year: {{ game.release_year }}</p>
   </div>
   <div class="card-action">
     <a href="{% url 'games_update' game.id %}">Edit</a>
@@ -17,3 +21,20 @@
 </div>
 
 {% endblock %}
+
+
+<!-- <div class="col s6">
+  <table class="striped">
+    <thead>
+      <tr><th>Platform</th></tr>
+    </thead>
+    <tbody>
+      {% for feeding in cat.feeding_set.all %}
+        <tr>
+          <td>{{feeding.date}}</td>
+          <td>{{feeding.get_meal_display}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div> -->

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Video Games List</h1>
+<h1>Video Game Tracker</h1>
 
 {% for game in games %}
   <div class="card">
@@ -10,8 +10,11 @@
       <span class="card-title">{{ game.name }}</span>
       <p>Developer: {{ game.developer }}</p>
       <p>Publisher: {{ game.publisher }}</p>
-      <p>Platform: {{ game.platform  }}</p>
-        <p>Release Year: {{ game.release_year }}</p>
+      <p>Release Year: {{ game.release_year }}</p>
+      <p>Completed: {{ game.completed }}</p>
+      <p>Hours Played: {{ game.hours_played }}</p>
+      <p>Playable On: {{ game.playable_on }}</p>
+      <p>Genre: {{ game.genre }}</p>
     </div>
   </div>
 </a>
