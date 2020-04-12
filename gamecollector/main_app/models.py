@@ -42,9 +42,11 @@ class PlayTime(models.Model):
         choices=YESNO,
         default=YESNO[1][1]
         )
-    game = models.ForeignKey(Games, on_delete=models.CASCADE)
-
+    games = models.ForeignKey(Games, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.get_completed_display()} on {self.date}"
+
+    class Meta:
+        ordering = ['-date']
 
 
