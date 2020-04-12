@@ -10,7 +10,8 @@ class GamesCreate(CreateView):
 
 class GamesUpdate(UpdateView):
     model = Games
-    fields = ['name', 'developer', 'publisher']
+    fields = ['completed', 'hours_played']
+    success_url = '/games/'
 
 class GamesDelete(DeleteView):
     model = Games
