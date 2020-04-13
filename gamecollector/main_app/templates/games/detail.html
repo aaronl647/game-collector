@@ -25,7 +25,7 @@
       {{ playtime_form.as_p }}
       <input type="submit" class="btn" value="Add Play Time">
     </form>
-    <table class="striped">
+    <table id="striped">
       <thead>
         <tr>
           <th>Date</th>
@@ -37,12 +37,36 @@
         {% for playtime in game.playtime_set.all %}
         <tr>
           <td>{{playtime.date}}</td>
-          <td>{{playtime.hours_played}}</td>
+          <td class ="SumOfHours">{{playtime.hours_played}}</td>
           <td>{{playtime.get_completed_display}}</td>
         </tr>
         {% endfor %}
       </tbody>
+      <thead>
+        <tr>
+          <th>Total Hours Played: </th>
+        </tr>
+      </thead>
     </table>
+  </div>
+  <hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ game.name }} is Available On: </h3>
+    {% if game.platform.count %}
+      {% for platform in game.platform.all %}
+        <div class="card"></div>
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              {{ platform.name }}
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>Platforms TBD</h5>
+    {% endif %}
   </div>
 </div>
 <script>
@@ -56,31 +80,16 @@
 
   var selectEl = document.getElementById('id_completed');
   M.FormSelect.init(selectEl);
+  
 </script>
 
 {% endblock %}
 
 
-<!-- <div class="col s6">
-  <h3>Available On These Platforms</h3>
-  {% if Platforms.count %}
-    {% for platform in Platforms.all %}
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">
-            {{ platform.name }}
-          </span>
-        </div>
-        <div class="card-action">
-          <form action="{% url 'assoc_toy' cat.id toy.id %}" method="post">
-              {% csrf_token %}
-            <button type="submit" class="btn">Add</button>
-          </form>
-        </div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <h5>{{game.name}} Already Has All Platforms Available</h5>
-  {% endif %}
-</div>
-</div> -->
+<!-- const tds = document.getElementById('striped').getElementsByClassName('SumOfHours');
+let sum = 0;
+for(let i = 0; i < tds.length; i++){
+  if(tds[i].className == 'SumOfHours'){
+    sum += isNaN(tds[i].innerHTML) ? 0 : parseInt(tds[i].innerHTML);
+  }
+} -->

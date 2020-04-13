@@ -11,17 +11,16 @@ YESNO = (
 
 
 class Platform(models.Model):
-    pass
-    # name = models.CharField(max_length=20)
-    # developer = models.CharField(max_length=20)
-    # generation = models.IntegerField()
-    # release_year = models.DateField()
+    name = models.CharField(max_length=20)
+    developer = models.CharField(max_length=20)
+    generation = models.IntegerField(default=1)
+    release_year = models.IntegerField(default=1980)
     
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
     
-    # def get_absolute_url(self):
-    #     return reverse('games_detail', kwargs={'pk': self.id})
+    def get_absolute_url(self):
+        return reverse('platform_detail', kwargs={'pk': self.id})
 
 class Games(models.Model):
     name = models.CharField(max_length=100)
@@ -29,10 +28,13 @@ class Games(models.Model):
     publisher = models.CharField(max_length=50)
     genre = models.CharField(max_length=100)
     release_year = models.IntegerField()
-    # platform = models.ManyToManyField(Platform) 
+    platform = models.ManyToManyField(Platform)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'games_id': self.id})
 
 class PlayTime(models.Model):
     date = models.DateField(('Date'), default=date.today)
@@ -40,7 +42,7 @@ class PlayTime(models.Model):
     completed = models.CharField(
         max_length=1,
         choices=YESNO,
-        default=YESNO[1][1]
+        default=YESNO[1]
         )
     games = models.ForeignKey(Games, on_delete=models.CASCADE)
     def __str__(self):
