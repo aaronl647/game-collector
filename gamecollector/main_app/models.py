@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 YESNO = (
     ('Y', 'Yes'),
@@ -29,6 +30,7 @@ class Games(models.Model):
     genre = models.CharField(max_length=100)
     release_year = models.IntegerField()
     platform = models.ManyToManyField(Platform)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

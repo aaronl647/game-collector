@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
+
 <body>
   <header class="navbar-fixed">
     <nav>
@@ -19,9 +21,14 @@
         </ul>
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
+          {% if user.is_authenticated %}
           <li><a href="{% url 'index' %}">View Video Games</a></li>
           <li><a href="{% url 'games_create' %}">Add a Game</a></li>
           <li><a href="{% url 'index' %}">View All My Games</a></li>
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
@@ -34,4 +41,5 @@
     <div class="right">All Rights Reserved, &copy; 2020 Video Game Tracker &nbsp;</div>
   </footer>
 </body>
+
 </html>
