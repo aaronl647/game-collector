@@ -37,7 +37,7 @@
         {% for playtime in game.playtime_set.all %}
         <tr>
           <td>{{playtime.date}}</td>
-          <td class ="SumOfHours">{{playtime.hours_played}}</td>
+          <td class="SumOfHours">{{playtime.hours_played}}</td>
           <td>{{playtime.get_completed_display}}</td>
         </tr>
         {% endfor %}
@@ -50,25 +50,46 @@
     </table>
   </div>
   <hr>
-<div class="row">
-  <div class="col s6">
-    <h3>{{ game.name }} is Available On: </h3>
-    {% if game.platform.count %}
+    <div class="col s6">
+      <h3>{{ game.name }} is Available On: </h3>
+      {% if game.platform.count %}
       {% for platform in game.platform.all %}
-        <div class="card"></div>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            {{ platform.name }}
+          </span>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <h5>Platforms TBD</h5>
+      {% endif %}
+    </div>
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Available Platforms</h3>
+    {% if platform.count %}
+      {% for platform in platform.all %}
         <div class="card">
           <div class="card-content">
             <span class="card-title">
               {{ platform.name }}
             </span>
+          <div class="card-action">
+            <form action="{% url 'assoc_platform' game.id platform.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
           </div>
         </div>
       {% endfor %}
     {% else %}
-      <h5>Platforms TBD</h5>
+      <h5> This Game is Available on all Platforms!</h5>
     {% endif %}
   </div>
-</div>
+
 <script>
   var dateEl = document.getElementById('id_date');
   M.Datepicker.init(dateEl, {
@@ -80,7 +101,6 @@
 
   var selectEl = document.getElementById('id_completed');
   M.FormSelect.init(selectEl);
-  
 </script>
 
 {% endblock %}
