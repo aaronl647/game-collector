@@ -59,6 +59,12 @@
           <span class="card-title">
             {{ platform.name }}
           </span>
+          <div class="card-action">
+            <form action="{% url 'unassoc_platform' game.id platform.id %}" method="delete">
+                {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
         </div>
       </div>
       {% endfor %}
@@ -67,7 +73,6 @@
       {% endif %}
     </div>
   </div>
-  <!-- Available toys will come after this line -->
   <div class="col s6">
     <h3>Available Platforms</h3>
     {% if platform.count %}
