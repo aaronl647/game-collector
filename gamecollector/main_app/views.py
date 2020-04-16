@@ -101,3 +101,4 @@ def add_photo(request, games_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('detail', games_id = games_id)
+
