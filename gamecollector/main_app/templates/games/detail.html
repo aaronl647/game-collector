@@ -17,6 +17,17 @@
         <a href="{% url 'games_update' game.id %}">Edit</a>
         <a href="{% url 'games_delete' game.id %}">Delete</a>
       </div>
+      {% for photo in game.photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}">
+      {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+      <form action="{% url 'add_photo' game.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        {% csrf_token %}
+        <input type="file" name="photo-file">
+        <br><br>
+        <input type="submit" class="btn" value="Upload Photo">
+      </form>
     </div>
   </div>
   <div class="col s6">
@@ -50,68 +61,68 @@
     </table>
   </div>
   <hr>
-    <div class="col s6">
-      <h3>{{ game.name }} is Available On: </h3>
-      {% if game.platform.count %}
-      {% for platform in game.platform.all %}
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">
-            {{ platform.name }}
-          </span>
-          <div class="card-action">
-            <form action="{% url 'unassoc_platform' game.id platform.id %}" method="delete">
-                {% csrf_token %}
-              <button type="submit" class="btn">Remove</button>
-            </form>
-          </div>
+  <div class="col s6">
+    <h3>{{ game.name }} is Available On: </h3>
+    {% if game.platform.count %}
+    {% for platform in game.platform.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          {{ platform.name }}
+        </span>
+        <div class="card-action">
+          <form action="{% url 'unassoc_platform' game.id platform.id %}" method="delete">
+            {% csrf_token %}
+            <button type="submit" class="btn">Remove</button>
+          </form>
         </div>
       </div>
-      {% endfor %}
-      {% else %}
-      <h5>Platforms TBD</h5>
-      {% endif %}
     </div>
-  </div>
-  <div class="col s6">
-    <h3>Available Platforms</h3>
-    {% if platform.count %}
-      {% for platform in platform.all %}
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">
-              {{ platform.name }}
-            </span>
-          <div class="card-action">
-            <form action="{% url 'assoc_platform' game.id platform.id %}" method="post">
-                {% csrf_token %}
-              <button type="submit" class="btn">Add</button>
-            </form>
-          </div>
-        </div>
-      {% endfor %}
+    {% endfor %}
     {% else %}
-      <h5> This Game is Available on all Platforms!</h5>
+    <h5>Platforms TBD</h5>
+    {% endif %}
+  </div>
+</div>
+<div class="col s6">
+  <h3>Available Platforms</h3>
+  {% if platform.count %}
+  {% for platform in platform.all %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">
+        {{ platform.name }}
+      </span>
+      <div class="card-action">
+        <form action="{% url 'assoc_platform' game.id platform.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5> This Game is Available on all Platforms!</h5>
     {% endif %}
   </div>
 
-<script>
-  var dateEl = document.getElementById('id_date');
-  M.Datepicker.init(dateEl, {
-    format: 'yyyy-mm-dd',
-    defaultDate: new Date(),
-    setDefaultDate: true,
-    autoClose: true
-  });
+  <script>
+    var dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+      format: 'yyyy-mm-dd',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true
+    });
 
-  var selectEl = document.getElementById('id_completed');
-  M.FormSelect.init(selectEl);
-</script>
+    var selectEl = document.getElementById('id_completed');
+    M.FormSelect.init(selectEl);
+  </script>
 
-{% endblock %}
+  {% endblock %}
 
 
-<!-- const tds = document.getElementById('striped').getElementsByClassName('SumOfHours');
+  <!-- const tds = document.getElementById('striped').getElementsByClassName('SumOfHours');
 let sum = 0;
 for(let i = 0; i < tds.length; i++){
   if(tds[i].className == 'SumOfHours'){
